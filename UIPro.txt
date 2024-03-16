@@ -134,17 +134,18 @@ local Window = Fluent:CreateWindow({
     MinimizeKey = Enum.KeyCode.End
 })
 local Tabs = {
-    Main = Window:AddTab({ Title = "chính", Icon = "home" }),
-    Stats = Window:AddTab({ Title = "chỉ số", Icon = "plus-circle" }),
-    Player = Window:AddTab({ Title = "người chơi", Icon = "baby" }),
-    Teleport = Window:AddTab({ Title = "tele đảo", Icon = "palmtree" }),
-    Fruit = Window:AddTab({ Title = "trái", Icon = "cherry" }),
-    Raid = Window:AddTab({ Title = "tập kích", Icon = "swords" }),
-    Visual = Window:AddTab({ Title = "Visual", Icon = "scan-face" }),
-    Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
-    Shop = Window:AddTab({ Title = "cửa hàng", Icon = "shopping-cart" }),
-	Misc = Window:AddTab({ Title = "khác", Icon = "list-plus" }),
-    Setting = Window:AddTab({ Title = "cài đặt", Icon = "settings" }),
+    Main = Window:AddTab({ Title = "chính", Icon = "" }),
+    Stats = Window:AddTab({ Title = "chỉ số", Icon = "" }),
+    Player = Window:AddTab({ Title = "người chơi", Icon = "" }),
+    Teleport = Window:AddTab({ Title = "tele đảo", Icon = "" }),
+    Fruit = Window:AddTab({ Title = "trái", Icon = "" }),
+    Raid = Window:AddTab({ Title = "tập kích", Icon = "" }),
+    Visual = Window:AddTab({ Title = "Visual", Icon = "" }),
+    Race = Window:AddTab({ Title = "Tộc V4", Icon = "" }),
+    Shop = Window:AddTab({ Title = "cửa hàng", Icon = "" }),
+	Misc = Window:AddTab({ Title = "khác", Icon = "" }),
+    Setting = Window:AddTab({ Title = "cài đặt", Icon = "" }),
+    Settings = Windwo:AddTab({ Title = "Ui Setting", icon = "" }),
 }
 local Options = Fluent.Options
 do
@@ -2582,9 +2583,6 @@ local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 
-local isMenuOpen = false -- Biến để theo dõi trạng thái của menu
-local isButtonEnabled = true -- Biến để kiểm tra xem nút có thể nhấn được hay không
-
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -2594,33 +2592,16 @@ ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
 ImageButton.Size = UDim2.new(0, 50, 0, 50)
 ImageButton.Draggable = true
--- Thiết lập hình ảnh ban đầu khi menu chưa được mở
-ImageButton.Image = "rbxassetid://16763401084
+ImageButton.Image = "rbxassetid://16711282498"
+ImageButton.MouseButton1Down:connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.End,false,game)
+end)
 
--- Hàm để thay đổi hình ảnh khi menu được mở hoặc đóng
-local function toggleMenu()
-    if not isButtonEnabled then return end -- Kiểm tra nút có thể nhấn được hay không
-    isButtonEnabled = false -- Đặt cờ để ngăn chặn việc nhấn nút nhiều lần
-    isMenuOpen = not isMenuOpen
-    if isMenuOpen then
-        ImageButton.Image = "rbxassetid://16763401084"
-        game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
-    else
-        ImageButton.Image = "rbxassetid://16763403642"
-    end
-    wait(0.5) -- Chờ 0.5 giây trước khi cho phép nhấn nút lại
-    isButtonEnabled = true
-end
-
--- Kết nối sự kiện click chuột để chuyển đổi trạng thái menu và thay đổi hình ảnh
-ImageButton.MouseButton1Down:Connect(toggleMenu)
-
--- Code xử lý xóa hình ảnh Death và Respawn
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
-    game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
+	game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
 end
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
-    game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
+	game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
 end
 
 local Farming = Tabs.Main:AddSection("Farming")
@@ -7209,3 +7190,45 @@ SliderPosZ:OnChanged(function(Value)
      posZ = Value
 end)
 SliderPosZ:SetValue(0)
+
+    local InterfaceSection = Tabs.Settings:AddSection("Interface")
+
+    InterfaceSection:AddDropdown("InterfaceTheme", {
+        Title = "Theme",
+        Description = "Changes the interface theme.",
+        Values = Main.Themes,
+        Default = Main.Theme,
+        Callback = function(Value)
+            Main:SetTheme(Value)
+        end
+    })
+
+    if Main.UseAcrylic then
+        InterfaceSection:AddToggle("AcrylicToggle", {
+            Title = "Acrylic",
+            Description = "The blurred background requires graphic quality 8+",
+            Default = Main.Acrylic,
+            Callback = function(Value)
+                Main:ToggleAcrylic(Value)
+            end
+        })
+    end
+
+    InterfaceSection:AddToggle("TransparentToggle", {
+        Title = "Transparency",
+        Description = "Makes the interface transparent.",
+        Default = Main.Transparency,
+        Callback = function(Value)
+            Main:ToggleTransparency(Value)
+        end
+    })
+
+    InterfaceSection:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Default = "RightShift" })
+    Main.MinimizeKeybind = Main.Options.MenuKeybind 
+end
+
+Main:Notify({
+    Title = "Fluent",
+    Content = "The script has been loaded.",
+    Duration = 8
+})
