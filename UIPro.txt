@@ -2582,7 +2582,7 @@ local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 
-local isMenuOpen = false -- Biến để theo dõi trạng thái của menu
+local isMenuOpen = true -- Biến để theo dõi trạng thái của menu
 
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -2594,16 +2594,16 @@ ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
 ImageButton.Size = UDim2.new(0, 50, 0, 50)
 ImageButton.Draggable = true
 -- Thiết lập hình ảnh ban đầu khi menu chưa được mở
-ImageButton.Image = "rbxassetid://16763403642"
+ImageButton.Image = "rbxassetid://16763401084"
 
 -- Hàm để thay đổi hình ảnh khi menu được mở hoặc đóng
 local function toggleMenu()
     isMenuOpen = not isMenuOpen
     if isMenuOpen then
-        ImageButton.Image = "rbxassetid://16763403642"
+        ImageButton.Image = "rbxassetid://16763401084"
         game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
     else
-        ImageButton.Image = "rbxassetid://16763401084"
+        ImageButton.Image = "rbxassetid://16763403642"
     end
 end
 
