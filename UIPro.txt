@@ -145,7 +145,7 @@ local Tabs = {
     Shop = Window:AddTab({ Title = "cửa hàng", Icon = "" }),
 	Misc = Window:AddTab({ Title = "khác", Icon = "" }),
     Setting = Window:AddTab({ Title = "cài đặt", Icon = "" }),
-    Settings = Windwo:AddTab({ Title = "Ui Setting", icon = "" }),
+    Settings = Windw:AddTab({ Title = "Ui Setting", icon = "" }),
 }
 local Options = Fluent.Options
 do
