@@ -2582,7 +2582,8 @@ local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 
-local isMenuOpen = true -- Biến để theo dõi trạng thái của menu
+local isMenuOpen = false -- Biến để theo dõi trạng thái của menu
+local isButtonEnabled = true -- Biến để kiểm tra xem nút có thể nhấn được hay không
 
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -2594,10 +2595,12 @@ ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
 ImageButton.Size = UDim2.new(0, 50, 0, 50)
 ImageButton.Draggable = true
 -- Thiết lập hình ảnh ban đầu khi menu chưa được mở
-ImageButton.Image = "rbxassetid://16763401084"
+ImageButton.Image = "rbxassetid://16763401084
 
 -- Hàm để thay đổi hình ảnh khi menu được mở hoặc đóng
 local function toggleMenu()
+    if not isButtonEnabled then return end -- Kiểm tra nút có thể nhấn được hay không
+    isButtonEnabled = false -- Đặt cờ để ngăn chặn việc nhấn nút nhiều lần
     isMenuOpen = not isMenuOpen
     if isMenuOpen then
         ImageButton.Image = "rbxassetid://16763401084"
@@ -2605,6 +2608,8 @@ local function toggleMenu()
     else
         ImageButton.Image = "rbxassetid://16763403642"
     end
+    wait(0.5) -- Chờ 0.5 giây trước khi cho phép nhấn nút lại
+    isButtonEnabled = true
 end
 
 -- Kết nối sự kiện click chuột để chuyển đổi trạng thái menu và thay đổi hình ảnh
