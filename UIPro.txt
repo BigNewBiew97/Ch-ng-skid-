@@ -145,7 +145,6 @@ local Tabs = {
     Shop = Window:AddTab({ Title = "cửa hàng", Icon = "" }),
 	Misc = Window:AddTab({ Title = "khác", Icon = "" }),
     Setting = Window:AddTab({ Title = "cài đặt", Icon = "" }),
-    Settings = Window:AddTab({ Title = "Ui Setting", Icon = "" }),
 }
 local Options = Fluent.Options
 do
@@ -2605,7 +2604,7 @@ if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn
 end
 
 local Farming = Tabs.Main:AddSection("Farming")
-local listfastattack = {'Normal Attack','Fast Attack','Super Fast Attack'}
+local listfastattack = {'Normal Attack','Fast Attack','Super Fast Attack','Extra Fast Attack'}
 
     local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
         Title = "Chọn Tốc Độ Đánh",
@@ -2623,6 +2622,8 @@ local listfastattack = {'Normal Attack','Fast Attack','Super Fast Attack'}
 		_G.Fast_Delay = 0.02
 	elseif _G.FastAttackGamer144YTB_Mode == "Super Fast Attack" then
 		_G.Fast_Delay = 0.008
+	elseif _G.FastAttackGamer144_Mode == "Extra Fast Attack" then
+	    _G.Fast_Delay = 0.003
 	end
 end)
 
@@ -6301,8 +6302,10 @@ Tabs.Race:AddButton({
 local ToggleKillPlayerTrial = Tabs.Race:AddToggle("ToggleKillPlayerTrial", {Title = "Auto Kill player trial",Description = "", Default = false })
 ToggleKillPlayerTrial:OnChanged(function(Value)
     _G.KillAfterTrials = value
+    StopTween(_G.KillAfterTrials)
 end)
 Options.ToggleKillPlayerTrial:SetValue(false)
+
 spawn(function()
     while wait() do 
         pcall(function()
@@ -7190,14 +7193,3 @@ SliderPosZ:OnChanged(function(Value)
      posZ = Value
 end)
 SliderPosZ:SetValue(0)
-
-
-Settings:AddDropdown("InterfaceTheme", {
-    Title = "Theme",
-    Description = "Changes the interface theme.",
-    Values = Main.Themes,
-     Default = Main.Theme,
-     Callback = function(Value)
-         Main:SetTheme(Value)
-    end
-})
