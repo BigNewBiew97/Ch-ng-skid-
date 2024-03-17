@@ -6301,15 +6301,14 @@ Tabs.Race:AddButton({
 
 local ToggleKillPlayerTrial = Tabs.Race:AddToggle("ToggleKillPlayerTrial", {Title = "Auto Kill player trial",Description = "", Default = false })
 ToggleKillPlayerTrial:OnChanged(function(Value)
-    _G.KillAfterTrials = value
-    StopTween(_G.KillAfterTrials)
+    KillAfterTrials = value
 end)
 Options.ToggleKillPlayerTrial:SetValue(false)
 
 spawn(function()
     while wait() do 
         pcall(function()
-            if _G.KillAfterTrials then
+            if KillAfterTrials then
                 for i,v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
                     if v.Name ~= game.Players.LocalPlayer.Name and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100 then
                         if v.Humanoid.Health > 0 then
