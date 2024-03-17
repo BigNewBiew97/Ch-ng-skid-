@@ -6407,6 +6407,7 @@ Tabs.Race:AddButton({
     end
 })
 
+
 Tabs.Race:AddButton({
     Title = "Teleport To Safe Zone PVP",
     Description = "",
@@ -6414,6 +6415,7 @@ Tabs.Race:AddButton({
         toTarget(CFrame.new(28273.0859375, 14896.5078125, 157.42063903808594))
     end
 })
+
 
 local Toggle = Tabs.Race:AddToggle("MyToggle", {Title = "Kill Player When Trial Complete", Default = false })
 
@@ -6443,6 +6445,7 @@ spawn(function()
         end)
     end
 end)
+
 
 local Toggle = Tabs.Race:AddToggle("MyToggle", {Title = "Kill Player When Trial Complete [Spam Skill]", Default = false })
 
