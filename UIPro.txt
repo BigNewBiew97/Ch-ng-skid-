@@ -141,6 +141,7 @@ local Tabs = {
     Fruit = Window:AddTab({ Title = "trái", Icon = "" }),
     Raid = Window:AddTab({ Title = "tập kích", Icon = "" }),
     Visual = Window:AddTab({ Title = "Visual", Icon = "" }),
+    St = Window:AddTab({ Title = "Status Sever", Icon = "" }),    
     Race = Window:AddTab({ Title = "Tộc V4", Icon = "" }),
     Shop = Window:AddTab({ Title = "cửa hàng", Icon = "" }),
 	Misc = Window:AddTab({ Title = "khác", Icon = "" }),
@@ -6057,6 +6058,121 @@ Tabs.Visual:AddInput("Input_Fragments", {
         game:GetService("Players")["LocalPlayer"].Data.Fragments.Value = tonumber(value)
     end
 })
+
+    local Kitsune = Tabs.St:AddParagraph({
+        Title = "KITSUNE Island",
+        Content = ""
+    })
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+    if game:GetService("Workspace").Map:FindFirstChild("KitsuneIsland") then
+    Kitsune:SetDesc('✅')
+    else
+      Kitsune:SetDesc('❌' )
+            end
+               end
+        end)
+end)
+    
+    local FrozenIsland = Tabs.St:AddParagraph({
+        Title = "Frozen Dimension",
+        Content = ""
+    })
+    
+    spawn(function()
+    pcall(function()
+        while wait() do
+            if game.Workspace._WorldOrigin.Locations:FindFirstChild('Frozen Dimension') then
+                FrozenIsland:SetDesc('✅')
+            else
+                FrozenIsland:SetDesc('❌')
+            end
+        end
+    end)
+end)
+    
+    local Mirragecheck = Tabs.St:AddParagraph({
+        Title = "Mirrage Island",
+        Content = ""
+    })
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+    if game.Workspace._WorldOrigin.Locations:FindFirstChild('Mirage Island') then
+    Mirragecheck:SetDesc('✅')
+    else
+      Mirragecheck:SetDesc('❌' )end
+            end
+        end)
+end)
+    
+    local FM = Tabs.St:AddParagraph({
+        Title = "Moon",
+        Content = ""
+    })
+    
+    task.spawn(function()
+            while task.wait() do
+                pcall(function()
+                    if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" then
+                        FM:SetDesc("Moon: 5/5")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" then
+                        FM:SetDesc("Moon: 4/5")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709143733" then
+                        FM:SetDesc("Moon: 3/5")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709150401" then
+                        FM:SetDesc("Moon: 2/5")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149680" then
+                        FM:SetDesc("Moon: 1/5")
+                    else
+                        FM:SetDesc("Moon: 0/5")
+                    end
+                end)
+            end
+    end)
+    
+    local Input = Tabs.St:AddInput("Input", {
+        Title = "Job Id",
+        Default = "",
+        Placeholder = "Paste Job Id",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+            _G.Job = Value
+        end
+    })
+    
+    Tabs.St:AddButton({
+        Title = "Copy Job ID",
+        Description = "",
+        Callback = function()
+            setclipboard(tostring(game.JobId))
+        end
+    })
+    
+    Tabs.St:AddButton({
+        Title = "Join Job ID",
+        Description = "",
+        Callback = function()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,_G.Job, game.Players.LocalPlayer)
+        end
+    })
+    
+    local Toggle = Tabs.St:AddToggle("MyToggle", {Title = "Spam Join Job Id", Default = false })
+    Toggle:OnChanged(function(Value)
+  _G.Join = Value
+		end)
+		
+		spawn(function()
+while wait() do
+if _G.Join then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,_G.Job, game.Players.LocalPlayer)
+end
+end
+end)
 
 function LockMoon()
     local Lighting = game:GetService("Lighting")
