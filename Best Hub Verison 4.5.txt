@@ -32,6 +32,7 @@ button.MouseButton1Click:Connect(function()
     toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
 end)
 
+
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -2279,7 +2280,7 @@ if getgenv().AntiLag then
 	end
 	spawn(function()setfpscap(GetFPS())end)
 end
-    
+ 
     local x2Code = {
         "KITTGAMING",
         "ENYU_IS_PRO",
@@ -5186,7 +5187,8 @@ Tabs.Fk:AddInput("Input_Fragments", {
         game:GetService("Players")["LocalPlayer"].Data.Fragments.Value = tonumber(value)
     end
 })
-    
+
+
     local Time = Tabs.St:AddParagraph({
         Title = "Time Zone",
         Content = ""
