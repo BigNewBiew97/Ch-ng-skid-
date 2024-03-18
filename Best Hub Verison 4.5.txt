@@ -1,37 +1,3 @@
--- Tạo một đối tượng ScreenGui để chứa nút và hiển thị trên màn hình của người chơi
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game:GetService("Players").LocalPlayer.PlayerGui
-
--- Tạo một đối tượng TextButton (nút văn bản) để đại diện cho nút
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(0, 80, 0, 30) -- Kích thước của nút (80x30 pixels)
-button.Position = UDim2.new(0, 10, 0, 10) -- Vị trí của nút (10 pixels từ góc trái và trên)
-button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Màu nền của nút
-
--- Tạo Gradient cho màu nền
-local gradient = Instance.new("UIGradient")
-gradient.Rotation = 90
-gradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)), -- Màu đỏ
-    ColorSequenceKeypoint.new(0.167, Color3.fromRGB(255, 255, 0)), -- Màu vàng
-    ColorSequenceKeypoint.new(0.333, Color3.fromRGB(0, 255, 0)), -- Màu xanh lá cây
-    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)), -- Màu xanh lam
-    ColorSequenceKeypoint.new(0.667, Color3.fromRGB(0, 0, 255)), -- Màu xanh dương
-    ColorSequenceKeypoint.new(0.833, Color3.fromRGB(255, 0, 255)), -- Màu tím
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0)) -- Màu đỏ
-}
-gradient.Parent = button -- Đặt Gradient là con của nút
-
--- Văn bản trên nút
-button.Text = "Stop Tween"
-button.Parent = screenGui -- Đặt nút là con của ScreenGui
-
--- Gán sự kiện khi nút được nhấn
-button.MouseButton1Click:Connect(function()
-    -- Điều khiển hành động khi nút được nhấn ở đây
-    toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-end)
-
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
